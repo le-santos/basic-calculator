@@ -1,139 +1,144 @@
-// Variables 
-
+// Variables
 const display = document.getElementById("display");
+const del = document.getElementById("del");
+const clear = document.getElementById("clear");
+const add = document.getElementById("add");
+const sub = document.getElementById("sub");
+const mult = document.getElementById("multip");
+const divi = document.getElementById("divide");
+const equal = document.getElementById("equal-operator");
 
-const del = document.getElementById('del');
-const clear = document.getElementById('clear');
-const add = document.getElementById('add');
-const sub = document.getElementById('sub');
-const mult = document.getElementById('multip');
-const divi = document.getElementById('divide');
-const equal = document.getElementById('equal-operator');
-
-const displayArr = [0];
-var displayData = 0;
+const operandArray = ["0"];
 const operands = [];
-var operator;
+const operatorChoice = { mathFunction: undefined };
+const inputLog = { lastInput: "" };
+const MAX_DIGITS_LENGTH = 13;
 
-// BASIC ACTIONS: data input, clear and erase functions
+// Calculator module - Math functions
 
-const pushThisNumber = function(){
-    let num = this.id;
+const calculator = (() => {
+  const sum = (a, b) => {
+    return a + b;
+  };
+  const subtract = (a, b) => {
+    return a - b;
+  };
+  const multiply = (a, b) => {
+    return +(a * b).toPrecision(7);
+  };
+  const divide = (a, b) => {
+    let output = b === 0 ? "ERROR div/0" : +(a / b).toPrecision(7);
+    return output;
+  };
+  return { sum, subtract, multiply, divide };
+})();
 
-    if (displayArr.length >= 13 || (num == "." && displayArr.includes("."))){
-        return;
-    } else if (num == "." && displayData == 0){
-        displayArr.push('.');
-    } else if (operator == undefined){
-        
-        if (displayArr.includes(".")){
-            displayArr.push(num);
-        } else if (displayData == 0){
-            displayArr.splice(0);
-            displayArr.push(num);
-        } else { 
-            displayArr.push(num);
-        }
+// Input check functions
 
-    } else if (num == "." && displayData == operands[0]){
-        displayArr[0] = 0;
-        displayArr.push(num);
-    } else if (displayData == operands[0]) {
-        displayArr.splice(0);
-        displayArr.push(num);
-    } else {
-        displayArr.push(num);
-    }
-
-    displayData = displayArr.join("");
-    return display.innerHTML = displayData;
+const didHitMaxLength = (digitArray) => {
+  return digitArray.length >= MAX_DIGITS_LENGTH ? true : false;
 };
 
+const isInputBlocked = (list, input) => {
+  return didHitMaxLength(list) || (input === "." && list.includes("."))
+    ? true
+    : false;
+};
 
-const clearAll = function(){
-    displayArr.splice(0);
-    displayArr[0] = 0;
+const cleanDisplayBeforeInput = (list, input) => {
+  if (input === ".") {
+    list.splice(0, 16, "0");
+  } else {
+    list.splice(0);
+  }
+};
+
+// Interface Functions: display setup, data input, clear and delete
+
+const updateDisplay = () => {
+  display.innerHTML = operandArray.join("");
+};
+
+const addNumToOperandList = (event) => {
+  let num = event.target.id;
+  let displayNum = operandArray.join("");
+
+  if (inputLog.lastInput === "operator") {
+    cleanDisplayBeforeInput(operandArray, num);
+  } else {
+    if (isInputBlocked(operandArray, num)) {
+      return;
+    } else if (displayNum === "0") {
+      cleanDisplayBeforeInput(operandArray, num);
+    }
+  }
+
+  operandArray.push(num);
+  updateDisplay();
+  inputLog.lastInput = num;
+};
+
+const clearAll = () => {
+  operandArray.splice(0, 16, "0");
+  operands.splice(0);
+  operatorChoice.mathFunction = undefined;
+  updateDisplay();
+};
+
+const erase = () => {
+  if (operandArray.length === 1) {
+    operandArray[0] = "0";
+  } else {
+    operandArray.pop();
+  }
+  updateDisplay();
+};
+
+// Calc operation functions
+
+const operate = (calc) => {
+  let result;
+  if (operatorChoice.mathFunction === undefined) {
+    operands.push(operandArray.join(""));
+    operatorChoice.mathFunction = calc;
+  } else {
+    operands.push(operandArray.join(""));
+    result = operatorChoice.mathFunction(+operands[0], +operands[1]);
     operands.splice(0);
-    displayData = displayArr.join("");
-    operator = undefined;
-    return display.innerHTML = displayData;
-}
+    operands[0] = result;
+    operatorChoice.mathFunction = calc;
+    operandArray.splice(0);
+    operandArray.push(result);
+    updateDisplay();
+  }
 
-const erase = function(){
-    if (displayArr.length == 1 && displayArr[0] == 0) {
-        return;
-    } else if (displayArr.length == 1){
-        displayArr[0] = 0;
-    } else {
-    displayArr.pop();
-    }
-    displayData = displayArr.join("");
-    return display.innerHTML = displayData; 
+  inputLog.lastInput = "operator";
 };
 
-// Calculator Math operations
+const getResult = () => {
+  let result;
+  if (operatorChoice.mathFunction === undefined) {
+    return;
+  } else {
+    operands.push(operandArray.join(""));
+    result = operatorChoice.mathFunction(+operands[0], +operands[1]);
+    clearAll();
+    operandArray[0] = result;
+    updateDisplay();
+  }
 
-
-const sum = function(a,b) {
-    return (a+b);
+  inputLog.lastInput = "operator";
 };
-
-const subtract = function(a,b) {
-    return (a-b);
-};
-
-const multiply = function(a,b) {
-    let output = a * b;
-    return +output.toPrecision(7); 
-};
-
-const divide = function(a,b) {
-    let output = (b == 0)? "ERROR div/0": (a/b);
-    return +output.toPrecision(7);
-};
-
-const operate = function(calc){
-    let result;
-    if (operator == undefined){
-        operands.push(displayData);
-        return operator = calc;
-    } else {
-        operands.push(displayData);
-        result = calc(+operands[0],+operands[1]);
-        operands.splice(0);
-        operands[0] = result;
-        operator = calc;
-        displayArr.splice(0);
-        displayArr[0] = result;
-        return display.innerHTML = result;
-    }
-};
-
-const getResult = function(calc){
-    let result;
-    if (operator == undefined){
-        return; 
-    } else {
-        operands.push(displayData);
-        result = calc(+operands[0],+operands[1]);
-        operands.splice(0);
-        displayArr.splice(0);
-        operator = undefined;
-        return display.innerHTML = result;
-    }
-}
 
 // EVENT listeners
 
-document.querySelectorAll('.digit').forEach(item => {
-    item.addEventListener('click', pushThisNumber);
-})
-
-add.addEventListener("click", function(){operate(sum)});
-sub.addEventListener("click", function(){operate(subtract)});
-mult.addEventListener("click", function(){operate(multiply)});
-divi.addEventListener("click", function(){operate(divide)});
-
+document.querySelectorAll(".digit").forEach((item) => {
+  item.addEventListener("click", addNumToOperandList);
+});
+add.addEventListener("click", () => operate(calculator.sum));
+sub.addEventListener("click", () => operate(calculator.subtract));
+mult.addEventListener("click", () => operate(calculator.multiply));
+divi.addEventListener("click", () => operate(calculator.divide));
 del.addEventListener("click", erase);
-equal.addEventListener("click", function(){getResult(operator)});
+equal.addEventListener("click", getResult);
 clear.addEventListener("click", clearAll);
