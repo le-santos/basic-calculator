@@ -97,37 +97,30 @@ const erase = () => {
 // Calc operation functions
 
 const operate = (calc) => {
-  let result;
-  if (operatorChoice.mathFunction === undefined) {
-    operands.push(operandArray.join(""));
-    operatorChoice.mathFunction = calc;
-  } else {
-    operands.push(operandArray.join(""));
-    result = operatorChoice.mathFunction(+operands[0], +operands[1]);
+  operands.push(operandArray.join(""));
+
+  if (operatorChoice.mathFunction !== undefined) {
+    let result = operatorChoice.mathFunction(+operands[0], +operands[1]);
     operands.splice(0);
     operands[0] = result;
-    operatorChoice.mathFunction = calc;
     operandArray.splice(0);
-    operandArray.push(result);
-    updateDisplay();
-  }
-
-  inputLog.lastInput = "operator";
-};
-
-const getResult = () => {
-  let result;
-  if (operatorChoice.mathFunction === undefined) {
-    return;
-  } else {
-    operands.push(operandArray.join(""));
-    result = operatorChoice.mathFunction(+operands[0], +operands[1]);
-    clearAll();
     operandArray[0] = result;
     updateDisplay();
   }
 
+  operatorChoice.mathFunction = calc;
   inputLog.lastInput = "operator";
+};
+
+const getResult = () => {
+  if (operatorChoice.mathFunction !== undefined) {
+    operands.push(operandArray.join(""));
+    let result = operatorChoice.mathFunction(+operands[0], +operands[1]);
+    clearAll();
+    operandArray[0] = result;
+    updateDisplay();
+    inputLog.lastInput = "operator";
+  }
 };
 
 // EVENT listeners
