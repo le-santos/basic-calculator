@@ -8,7 +8,7 @@ const mult = document.getElementById("multip");
 const divi = document.getElementById("divide");
 const equal = document.getElementById("equal-operator");
 
-const operandArray = ["0"];
+const digitArray = ["0"];
 const operands = [];
 const operatorChoice = { mathFunction: undefined };
 const inputLog = { lastInput: "" };
@@ -35,8 +35,8 @@ const calculator = (() => {
 
 // Input check functions
 
-const didHitMaxLength = (digitArray) => {
-  return digitArray.length >= MAX_DIGITS_LENGTH ? true : false;
+const didHitMaxLength = (digits) => {
+  return digits.length >= MAX_DIGITS_LENGTH ? true : false;
 };
 
 const isInputBlocked = (list, input) => {
@@ -56,40 +56,40 @@ const cleanDisplayBeforeInput = (list, input) => {
 // Interface Functions: display setup, data input, clear and delete
 
 const updateDisplay = () => {
-  display.innerHTML = operandArray.join("");
+  display.innerHTML = digitArray.join("");
 };
 
 const addNumToOperandList = (event) => {
   let num = event.target.id;
-  let displayNum = operandArray.join("");
+  let displayNum = digitArray.join("");
 
   if (inputLog.lastInput === "operator") {
-    cleanDisplayBeforeInput(operandArray, num);
+    cleanDisplayBeforeInput(digitArray, num);
   } else {
-    if (isInputBlocked(operandArray, num)) {
+    if (isInputBlocked(digitArray, num)) {
       return;
     } else if (displayNum === "0") {
-      cleanDisplayBeforeInput(operandArray, num);
+      cleanDisplayBeforeInput(digitArray, num);
     }
   }
 
-  operandArray.push(num);
+  digitArray.push(num);
   updateDisplay();
   inputLog.lastInput = num;
 };
 
 const clearAll = () => {
-  operandArray.splice(0, 16, "0");
+  digitArray.splice(0, 16, "0");
   operands.splice(0);
   operatorChoice.mathFunction = undefined;
   updateDisplay();
 };
 
 const erase = () => {
-  if (operandArray.length === 1) {
-    operandArray[0] = "0";
+  if (digitArray.length === 1) {
+    digitArray[0] = "0";
   } else {
-    operandArray.pop();
+    digitArray.pop();
   }
   updateDisplay();
 };
@@ -97,14 +97,14 @@ const erase = () => {
 // Calc operation functions
 
 const operate = (calc) => {
-  operands.push(operandArray.join(""));
+  operands.push(digitArray.join(""));
 
   if (operatorChoice.mathFunction !== undefined) {
     let result = operatorChoice.mathFunction(+operands[0], +operands[1]);
     operands.splice(0);
     operands[0] = result;
-    operandArray.splice(0);
-    operandArray[0] = result;
+    digitArray.splice(0);
+    digitArray[0] = result;
     updateDisplay();
   }
 
@@ -114,10 +114,10 @@ const operate = (calc) => {
 
 const getResult = () => {
   if (operatorChoice.mathFunction !== undefined) {
-    operands.push(operandArray.join(""));
+    operands.push(digitArray.join(""));
     let result = operatorChoice.mathFunction(+operands[0], +operands[1]);
     clearAll();
-    operandArray[0] = result;
+    digitArray[0] = result;
     updateDisplay();
     inputLog.lastInput = "operator";
   }
