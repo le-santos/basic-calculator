@@ -1,20 +1,47 @@
 # basic-calculator
-Calculadora feita em html/css/js como atividade do Odin Project [curriculum](https://www.theodinproject.com/courses/web-development-101/lessons/calculator)
+Calculadora feita em html/css/js como atividade do Odin Project [curriculum](https://www.theodinproject.com/courses/web-development-101/lessons/calculator).
 
-Nesta atividade aprendi a usar melhor:
+Confira aqui: [https://le-santos.github.io/basic-calculator/](https://le-santos.github.io/basic-calculator/)
 
-CSS
-- Grids
-- Buttons
-- Pseudo classes: button:hover, button:active
-- Color Gradients
+## Como funciona?
 
-JavaScript
+Essa é uma calculadora simples com as 4 funções básicas (soma, adição, multiplicação, divisão).
+
+Há 3 formas de realizar as operações:
+
+**Operação única**
+- Insira o primeiro operando
+- Selecione o operador ( + - / x )
+- Insira o segundo operando
+- Aperte `< = >` para realizar o cálculo e mostrar resultado
+
+**Operação encadeada**
+- Insira o primeiro operando
+- Selecione o operador ( + - / x )
+- Insira o segundo operando
+- Selecione outro operando para realizar o cálculo e encadear em outra operação.
+
+**Operação abreviada**
+- Insira o primeiro operando
+- Selecione o operador ( + - / x )
+- Aperte < = > para realizar o cálculo tendo o mesmo número como os dois operandos
+Ex: `< 6 > < x > < = >` O resultado será: (6 * 6 ) = 36 
+
+
+Outras infos:
+- É possível utilizar números decimais
+- O máximo número de dígitos é 13
+- Divisão por 0 retorna o aviso *ERROR div/0*
+- O botão `< del >` remove o último número inserido
+- O botão `< C >` limpa o display, o operador selecionado e a lista de operandos
+
+
+## Conhecimentos aplicados
+Nesta atividade coloquei em prática elementos de CSS como Grids, Pseudo-classes, Color Gradients.
+No Javascript apliquei os recursos de: 
 - Manipulação de Arrays: push(), splice(), join(), includes()
-- DOM Events: setup de Event Listeners
-
-Nas futuras revisões ao longo do aprendizado pretendo simplificar o código, identificar falhas e adicionar entradas via teclado numérico.
-
-
-
-
+- Event Listeners no DOM
+- Module pattern 
+```
+const calculator = (() => {...})();
+```
