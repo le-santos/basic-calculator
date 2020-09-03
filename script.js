@@ -33,7 +33,7 @@ const calculator = (() => {
   return { sum, subtract, multiply, divide };
 })();
 
-// Input check functions
+// Digit input validation and setup
 
 const didHitMaxLength = (digits) => {
   return digits.length >= MAX_DIGITS_LENGTH ? true : false;
@@ -45,6 +45,8 @@ const isInputBlocked = (list, input) => {
     : false;
 };
 
+// Display setup
+
 const cleanDisplayBeforeInput = (list, input) => {
   if (input === ".") {
     list.splice(0, 16, "0");
@@ -53,11 +55,11 @@ const cleanDisplayBeforeInput = (list, input) => {
   }
 };
 
-// Interface Functions: display setup, data input, clear and delete
-
 const updateDisplay = () => {
   display.innerHTML = digitArray.join("");
 };
+
+// Button Functions: data input, clear, delete, operators
 
 const addNumToOperandList = (event) => {
   let num = event.target.id;
