@@ -45,6 +45,32 @@ const isInputBlocked = (list, input) => {
     : false;
 };
 
+const isValidKeyboardInput = (input) => {
+  let keyboardValidInputs = [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    ".",
+    "+",
+    "-",
+    "*",
+    "/",
+    "=",
+    "Delete",
+    "c",
+    "Enter",
+  ];
+
+  return keyboardValidInputs.includes(input);
+};
+
 // Display setup
 
 const cleanDisplayBeforeInput = (list, input) => {
@@ -61,8 +87,14 @@ const updateDisplay = () => {
 
 // Button Functions: data input, clear, delete, operators
 
-const addNumToOperandList = (event) => {
-  let num = event.target.id;
+const addNumToOperandList = (event, key) => {
+  let num;
+  if (event.type === "click") {
+    num = event.target.id;
+  } else if (event === "keydown") {
+    num = key;
+  }
+
   let displayNum = digitArray.join("");
 
   if (inputLog.lastInput === "operator") {
@@ -78,6 +110,43 @@ const addNumToOperandList = (event) => {
   digitArray.push(num);
   updateDisplay();
   inputLog.lastInput = num;
+};
+
+const handleKeyboardInput = (event) => {
+  let key = event.key;
+  if (!isValidKeyboardInput(key)) {
+    return;
+  }
+
+  switch (key) {
+    case "+":
+      operate(calculator.sum);
+      break;
+    case "-":
+      operate(calculator.subtract);
+      break;
+    case "*":
+      operate(calculator.multiply);
+      break;
+    case "/":
+      operate(calculator.divide);
+      break;
+    case "=":
+      getResult();
+      break;
+    case "Delete":
+      erase();
+      break;
+    case "c":
+      clearAll();
+      break;
+    case "Enter":
+      getResult();
+      break;
+    default:
+      addNumToOperandList(event.type, key);
+      break;
+  }
 };
 
 const clearAll = () => {
@@ -137,3 +206,4 @@ divi.addEventListener("click", () => operate(calculator.divide));
 del.addEventListener("click", erase);
 equal.addEventListener("click", getResult);
 clear.addEventListener("click", clearAll);
+window.addEventListener("keydown", handleKeyboardInput);
