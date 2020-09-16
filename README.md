@@ -29,6 +29,7 @@ Ex: `< 6 > < x > < = >` O resultado será: (6 * 6 ) = 36
 
 
 Outras infos:
+- É possível operar via mouse (click event) ou teclado (keydown event)
 - É possível utilizar números decimais
 - O máximo número de dígitos é 13
 - Divisão por 0 retorna o aviso *ERROR div/0*
