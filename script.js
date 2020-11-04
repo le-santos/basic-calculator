@@ -33,7 +33,7 @@ const mathOperations = (() => {
   return { sum, subtract, multiply, divide };
 })();
 
-// Digit input validation and setup
+// Digit input validation
 
 const didHitMaxLength = (digits) => {
   return digits.length >= MAX_DIGITS_LENGTH ? true : false;
@@ -89,14 +89,16 @@ const updateDisplay = () => {
 
 // Button Functions: data input, clear, delete, operators
 
-const addNumToOperandList = (event, key) => {
-  let num;
+const getInputEventSource = (event) => {
   if (event.type === "click") {
-    num = event.target.id;
-  } else if (event === "keydown") {
-    num = key;
+    return event.target.id;
+  } else if (event.type === "keydown") {
+    return event.key;
   }
+}
 
+const addNumToOperandList = (event) => {
+  let num = getInputEventSource(event)
   let displayNum = digitArray.join("");
 
   if (inputLog.lastInput === "operator") {
@@ -146,7 +148,7 @@ const handleKeyboardInput = (event) => {
       getResult();
       break;
     default:
-      addNumToOperandList(event.type, key);
+      addNumToOperandList(event);
       break;
   }
 };
