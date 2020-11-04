@@ -14,9 +14,9 @@ const operatorChoice = { mathFunction: undefined };
 const inputLog = { lastInput: "" };
 const MAX_DIGITS_LENGTH = 13;
 
-// Calculator module - Math functions
+// mathOperations module - Math functions
 
-const calculator = (() => {
+const mathOperations = (() => {
   const sum = (a, b) => {
     return a + b;
   };
@@ -39,10 +39,12 @@ const didHitMaxLength = (digits) => {
   return digits.length >= MAX_DIGITS_LENGTH ? true : false;
 };
 
-const isInputBlocked = (list, input) => {
-  return didHitMaxLength(list) || (input === "." && list.includes("."))
-    ? true
-    : false;
+const isDecimalBlocked = (digits, input) => {
+  return (input === "." && digits.includes("."));
+}
+
+const isInputBlocked = (displayDigits, input) => {
+  return didHitMaxLength(displayDigits) || isDecimalBlocked(displayDigits, input);
 };
 
 const isValidKeyboardInput = (input) => {
@@ -120,16 +122,16 @@ const handleKeyboardInput = (event) => {
 
   switch (key) {
     case "+":
-      operate(calculator.sum);
+      operate(mathOperations.sum);
       break;
     case "-":
-      operate(calculator.subtract);
+      operate(mathOperations.subtract);
       break;
     case "*":
-      operate(calculator.multiply);
+      operate(mathOperations.multiply);
       break;
     case "/":
-      operate(calculator.divide);
+      operate(mathOperations.divide);
       break;
     case "=":
       getResult();
@@ -199,10 +201,10 @@ const getResult = () => {
 document.querySelectorAll(".digit").forEach((item) => {
   item.addEventListener("click", addNumToOperandList);
 });
-add.addEventListener("click", () => operate(calculator.sum));
-sub.addEventListener("click", () => operate(calculator.subtract));
-mult.addEventListener("click", () => operate(calculator.multiply));
-divi.addEventListener("click", () => operate(calculator.divide));
+add.addEventListener("click", () => operate(mathOperations.sum));
+sub.addEventListener("click", () => operate(mathOperations.subtract));
+mult.addEventListener("click", () => operate(mathOperations.multiply));
+divi.addEventListener("click", () => operate(mathOperations.divide));
 del.addEventListener("click", erase);
 equal.addEventListener("click", getResult);
 clear.addEventListener("click", clearAll);
