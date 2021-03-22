@@ -1,7 +1,7 @@
 :root {
   font-size: 16px;
-  --color-background: #f2f2f2;  
-  --color-btn-equal: #EF8345;
+  --color-background: #f2f2f2;
+  --color-btn-equal: #ef8345;
   --color-btn-digit: #bab1ba;
   --color-btn-del: #d8c324;
   --color-btn-del-hover: #ddd8b4;
@@ -22,109 +22,108 @@
 }
 
 * {
-    padding: 0;
-    margin: 0;
-    font-family: 'Montserrat Alternates', sans-serif;
-    border: 0;
-    vertical-align: baseline;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-  }
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat Alternates", sans-serif;
+  border: 0;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
 
-  html {
-    height: 100vh;
-  }
+html {
+  height: 100vh;
+}
 
-  body {
-    background-color: var(--color-background);
-    background: linear-gradient(to bottom right,  #16222A 3%, #3A6073 100%);
-    text-align: center;
-    height: calc(100% - 3rem);
-  }
+body {
+  background-color: var(--color-background);
+  background: linear-gradient(to bottom right, #16222a 3%, #3a6073 100%);
+  text-align: center;
+  height: calc(100% - 3rem);
+}
 
-  h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.75rem;
-    background-color: none;
-    color: var(--color-background);
-    text-align: center;
-  }
+h1 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.75rem;
+  background-color: none;
+  color: var(--color-background);
+  text-align: center;
+}
 
-  a {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--color-display);
-  }
+a {
+  font-family: "Orbitron", sans-serif;
+  color: var(--color-display);
+}
 
 /* Main areas */
 
-  header {
-    position: fixed;
-    top: 0px;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-  
-  main {
-    display: flex;
-    height: calc(100% - 2.5rem);
-    margin-top: 2.5rem;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  footer {
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    height: 3rem;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: var(--color-btn-operator);
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-  }
+header {
+  position: fixed;
+  top: 0px;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 
-  footer p {
-    color: var(--color-calc-side);
-  }
+main {
+  display: flex;
+  height: calc(100% - 2.5rem);
+  margin-top: 2.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 3rem;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: var(--color-btn-operator);
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+}
+
+footer p {
+  color: var(--color-calc-side);
+}
 
 /* Calculator styles */
 
-  .calculator {
-    background-color: var(--color-calc-side);
-    box-shadow: -4px 4px 0px 2px #a7a48d;
-    border-radius: 5px;
-  }
+.calculator {
+  background-color: var(--color-calc-side);
+  box-shadow: -4px 4px 0px 2px #a7a48d;
+  border-radius: 5px;
+}
 
-  .calculator-inner {
-    background-color: var(--color-calc-inner);
-    display: grid;
-    grid-template-areas: 
-                "display display"
-                "numbers operators";
-    text-align: center;
-    padding: 0.5rem;
-    margin: 1rem; 
-  }
+.calculator-inner {
+  background-color: var(--color-calc-inner);
+  display: grid;
+  grid-template-areas:
+    "display display"
+    "numbers operators";
+  text-align: center;
+  padding: 0.5rem;
+  margin: 1rem;
+}
 
-  .display {
-    grid-area: display;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.5rem;
-    letter-spacing: 4px;
-    background-color: var(--color-display-back);
-    color: var(--color-display);
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    text-align: right;
-    overflow: hidden;
-  }
-
+.display {
+  grid-area: display;
+  font-family: "Orbitron", sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 4px;
+  background-color: var(--color-display-back);
+  color: var(--color-display);
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-align: right;
+  overflow: hidden;
+}
 
 /* Internal Grids Setup */
 
@@ -137,10 +136,10 @@
   float: left;
 }
 
-.operators-area{
+.operators-area {
   grid-area: operators;
   display: grid;
-  grid-template-columns: repeat(2, 3.80rem);
+  grid-template-columns: repeat(2, 3.8rem);
   grid-template-rows: repeat(4, 3.75rem);
   gap: 6px 6px;
   float: right;
@@ -149,75 +148,82 @@
 
 /* Buttons setup */
 
-  button {
-    font-family: 'Montserrat Alternates', sans-serif;
-    font-size: 1.25rem; 
-    padding: 0.75rem;
-    box-shadow: -2px 2px 0px 0px #899599;
-    background-color: var(--color-btn-digit);
-    background: var(--btn-gradient);
-    border-radius: 10px;
-    color: var(--color-calc-inner);
-    cursor: pointer;
-  }
-
-  button:hover {
-    background: var(--btn-gradient-hover);
-    background-color: var(--color-btn-digit);
+button {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 1.25rem;
+  padding: 0.75rem;
+  box-shadow: -2px 2px 0px 0px #899599;
+  background-color: var(--color-btn-digit);
+  background: var(--btn-gradient);
+  border-radius: 10px;
+  color: var(--color-calc-inner);
+  cursor: pointer;
 }
-  button:active{
-    position: relative;
-    top: 2px;
-  }
 
-  button:focus {
-    outline:0;
-  }
+button:hover {
+  background: var(--btn-gradient-hover);
+  background-color: var(--color-btn-digit);
+}
+button:active {
+  position: relative;
+  top: 2px;
+}
 
-  .zero {
-    grid-column-start: 1;
-    grid-column-end: 3;
-  }
+button:focus {
+  outline: 0;
+}
 
-  #clear, #del {
-    background-color: var(--color-btn-del);
-    background:linear-gradient(to bottom, #ddd8b4 5%, #cfc140 100%);
-    box-shadow: -2px 2px 0px 0px #86784f;
-    color: var(--color-calc-inner);
+.zero {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
 
-  }
+#clear,
+#del {
+  background-color: var(--color-btn-del);
+  background: linear-gradient(to bottom, #ddd8b4 5%, #cfc140 100%);
+  box-shadow: -2px 2px 0px 0px #86784f;
+  color: var(--color-calc-inner);
+}
 
-  #clear:hover, #del:hover {
-    background-color: var(--color-btn-del-hover);
-    background:linear-gradient(to bottom, #cfc140 100%, #ddd8b4 5%);
-  }
+#clear:hover,
+#del:hover {
+  background-color: var(--color-btn-del-hover);
+  background: linear-gradient(to bottom, #cfc140 100%, #ddd8b4 5%);
+}
 
-  #equal-operator {
-    background-color: var(--color-btn-equal);
-    background:linear-gradient(to bottom, #e9a476 5%, #da6e30 100%);
-    box-shadow: -2px 2px 0px 0px #8b5536;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    color: var(--color-calc-inner);
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
+#equal-operator {
+  background-color: var(--color-btn-equal);
+  background: linear-gradient(to bottom, #e9a476 5%, #da6e30 100%);
+  box-shadow: -2px 2px 0px 0px #8b5536;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  color: var(--color-calc-inner);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
 
-  #equal-operator:hover {
-    background-color: var(--color-btn-equal);
-    background:linear-gradient(to bottom,#da6e30 100%, #e9a476 5%);
-  }
+#equal-operator:hover {
+  background-color: var(--color-btn-equal);
+  background: linear-gradient(to bottom, #da6e30 100%, #e9a476 5%);
+}
 
-  #add, #sub, #multip, #divide {
-    background-color: var(--color-btn-operator);
-    background:linear-gradient(to bottom, #737679 15%, #393d3f 90%);
-    box-shadow: -2px 2px 0px 0px #232324;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--color-calc-inner);
-  } 
+#add,
+#sub,
+#multip,
+#divide {
+  background-color: var(--color-btn-operator);
+  background: linear-gradient(to bottom, #737679 15%, #393d3f 90%);
+  box-shadow: -2px 2px 0px 0px #232324;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-calc-inner);
+}
 
-  #add:hover, #sub:hover, #multip:hover, #divide:hover {
-    background-color: var(--color-btn-operator-hover);
-    background:linear-gradient(to bottom, #393d3f 100%,  #737679 50%);
-  }
+#add:hover,
+#sub:hover,
+#multip:hover,
+#divide:hover {
+  background-color: var(--color-btn-operator-hover);
+  background: linear-gradient(to bottom, #393d3f 100%, #737679 50%);
+}
