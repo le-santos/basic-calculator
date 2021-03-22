@@ -36,13 +36,11 @@ const calculator = (() => {
 // Digit input validation and setup
 
 const didHitMaxLength = (digits) => {
-  return digits.length >= MAX_DIGITS_LENGTH ? true : false;
+  return digits.length >= MAX_DIGITS_LENGTH;
 };
 
-const isInputBlocked = (list, input) => {
-  return didHitMaxLength(list) || (input === "." && list.includes("."))
-    ? true
-    : false;
+const isInputBlocked = (digits, input) => {
+  return didHitMaxLength(digits) || (input === "." && digits.includes("."));
 };
 
 const isValidKeyboardInput = (input) => {
@@ -73,11 +71,11 @@ const isValidKeyboardInput = (input) => {
 
 // Display setup
 
-const cleanDisplayBeforeInput = (list, input) => {
+const cleanDisplayBeforeInput = (digits, input) => {
   if (input === ".") {
-    list.splice(0, 16, "0");
+    digits.splice(0, 16, "0");
   } else {
-    list.splice(0);
+    digits.splice(0);
   }
 };
 
@@ -87,14 +85,16 @@ const updateDisplay = () => {
 
 // Button Functions: data input, clear, delete, operators
 
-const addNumToOperandList = (event, key) => {
-  let num;
+const getNumberFromEvent = (event, key) => {
   if (event.type === "click") {
-    num = event.target.id;
+    return event.target.id;
   } else if (event === "keydown") {
-    num = key;
+    return key;
   }
+};
 
+const addNumToOperandList = (event, key) => {
+  let num = getNumberFromEvent(event, key);
   let displayNum = digitArray.join("");
 
   if (inputLog.lastInput === "operator") {
